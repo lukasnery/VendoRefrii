@@ -32,31 +32,29 @@ if (session_status() == PHP_SESSION_NONE) {
 <header>
     <h1>VendoRefri</h1>
     <nav>
-        <a href="/VendoRefri/public/">Home</a>
-        <a href="/VendoRefri/public/index.php?route=produtos">Produtos</a>
+    <a href="/VendoRefri/public/">Home</a>
+    <a href="/VendoRefri/public/index.php?route=produtos">Produtos</a>
 
-        <?php if (!empty($_SESSION['cliente_id'])): ?>
-            <a href="/VendoRefri/public/index.php?route=cliente/perfil">Meu Perfil</a>
-            <a href="/VendoRefri/public/index.php?route=pedido/carrinho">Carrinho</a>
-            <a href="/VendoRefri/public/index.php?route=cliente/logout">Sair</a>
-        <?php else: ?>
-            <a href="/VendoRefri/public/index.php?route=cliente/login">Login</a>
-            <a href="/VendoRefri/public/index.php?route=cliente/cadastro">Cadastro</a>
-        <?php endif; ?>
+    <!-- Se cliente está logado -->
+    <?php if (!empty($_SESSION['cliente_id'])): ?>
+        <a href="/VendoRefri/public/index.php?route=cliente/perfil">Meu Perfil</a>
+        <a href="/VendoRefri/public/index.php?route=pedido/carrinho">Carrinho</a>
+        <a href="/VendoRefri/public/index.php?route=cliente/logout">Sair</a>
 
-        <?php 
-        // Mostrar painel admin apenas se tipo de cliente for admin
-        if (isset($_SESSION['cliente_tipo']) && $_SESSION['cliente_tipo'] === 'admin'): ?>
-            <a href="/VendoRefri/public/index.php?route=admin/dashboard">Painel Administrativo</a>
-            <a href="/VendoRefri/public/index.php?route=admin/logout">Sair Admin</a>
-        <?php endif; ?>
-        <!-- Botão para login de admin -->
+    <?php else: ?>
+        <!-- Visitante -->
+        <a href="/VendoRefri/public/index.php?route=cliente/login">Login</a>
+        <a href="/VendoRefri/public/index.php?route=cliente/cadastro">Cadastro</a>
+    <?php endif; ?>
+
+    <!-- Acesso do ADMIN -->
+    <?php if (!empty($_SESSION['admin_id'])): ?>
+        <a href="/VendoRefri/public/index.php?route=admin/dashboard">Painel Administrativo</a>
+        <a href="/VendoRefri/public/index.php?route=admin/logout">Sair Admin</a>
+    <?php else: ?>
         <a href="/VendoRefri/public/index.php?route=admin/login" style="color:#FFD700;">Login Admin</a>
-        <?php 
-        // Caso você ainda tenha admins criados com admin_id
-        if (!empty($_SESSION['admin_id'])): ?>
-            <a href="/VendoRefri/public/index.php?route=admin/dashboard">Painel Administrativo</a>
-        <?php endif; ?>
-    </nav>
+    <?php endif; ?>
+</nav>
+
 </header>
 <main>
